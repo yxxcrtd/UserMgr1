@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="login" extends="struts-default">
+		<action name="login" class="loginAction">
+			<result name="input">/index.jsp</result>
+			<result name="Login_Success" type="redirect">${redUrl}</result>
+		</action>
+	</package>
+	<package name="logout" extends="struts-default">
+		<action name="logout" class="logoutAction">
+			<result name="success" type="redirect">${redUrl}</result>
+		</action>
+	</package>
+	<package name="find" extends="struts-default">
+		<action name="find" class="findAction">
+			<result type="redirect-action">login</result>
+			<result name="input" type="freemarker">/WEB-INF/ftl/password/FindPassword.ftl</result>
+			<result name="Two_Success" type="freemarker">/WEB-INF/ftl/password/FindPassword_Two.ftl</result>
+			<result name="Three_Success" type="freemarker">/WEB-INF/ftl/password/FindPassword_Three.ftl</result>
+		</action>
+	</package>
+	<package name="user" extends="struts-default">
+		<action name="user" class="userAction">
+			<result name="List_Success" type="freemarker">/WEB-INF/ftl/UserList.ftl</result>
+			<result name="Update_Success" type="freemarker">/WEB-INF/ftl/UserUpdate.ftl</result>
+		</action>
+	</package>
+	<package name="register" extends="struts-default">
+		<action name="register!*" method="{1}" class="registerAction">
+			<result name="input" type="freemarker">/WEB-INF/ftl/Register.ftl</result>
+			<result name="success" type="redirect">${redUrl}</result>
+		</action>
+	</package>
+</struts>

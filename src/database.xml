@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" dependency-check="none">
+		<property name="driverClass">
+			<value>net.sourceforge.jtds.jdbc.Driver</value>
+		</property>		
+		<property name="jdbcUrl">
+			<value>jdbc:jtds:sqlserver://192.168.3.1:1433;DatabaseName=jUser;SelectMethod=cursor</value>
+		</property>
+		<property name="user">
+			<value>sa</value>
+		</property>
+		<property name="password">
+			<value>lambada</value>
+		</property>
+		<property name="acquireIncrement">
+			<value>50</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>50</value>
+		</property>
+		<property name="minPoolSize">
+			<value>50</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>100</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>1800</value>
+		</property>
+		<property name="idleConnectionTestPeriod">
+			<value>300</value>
+		</property>
+		<property name="maxStatements">
+			<value>100</value>
+		</property>
+		<property name="numHelperThreads">
+			<value>50</value>
+		</property>
+		<property name="acquireRetryAttempts">
+			<value>50</value>
+		</property>
+		<property name="breakAfterAcquireFailure">
+			<value>false</value>
+		</property>
+		<property name="testConnectionOnCheckout">
+			<value>false</value>
+		</property>
+	</bean>
+</beans>

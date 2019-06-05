@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="sessionFactory" lazy-init="true" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource"><ref bean="dataSource" /></property>
+		<property name="configLocation"><value>classpath:hibernate.cfg.xml</value></property>
+	</bean>
+	<bean id="transactionManager" lazy-init="true" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory"><ref local="sessionFactory" /></property>
+	</bean>
+	<bean id="loginAction" lazy-init="true" singleton="false" class="cn.edustar.usermgr.action.LoginAction">
+		<property name="userService" ref="userService" />
+		<property name="registerService" ref="registerService" />
+	</bean>
+	<bean id="userService" lazy-init="true" class="cn.edustar.usermgr.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao" />
+		<property name="cacheService" ref="cacheService" />
+	</bean>
+	<bean id="userDao" lazy-init="true" class="cn.edustar.usermgr.dao.hibernate.UserDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="logoutAction" lazy-init="true" singleton="false" class="cn.edustar.usermgr.action.LogoutAction">
+	</bean>
+	<bean id="registerAction" lazy-init="true" singleton="false" class="cn.edustar.usermgr.action.RegisterAction">		
+		<property name="registerService" ref="registerService" />
+	</bean>
+  	<bean id="registerService" lazy-init="true" class="cn.edustar.usermgr.service.impl.RegisterServiceImpl">
+    	<property name="registerDao" ref="registerDao" />
+  	</bean>
+  	<bean id="registerDao" lazy-init="true" class="cn.edustar.usermgr.dao.hibernate.RegisterDaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory" />
+  	</bean>
+	<bean id="findAction" lazy-init="true" singleton="false" class="cn.edustar.usermgr.action.FindAction">		
+		<property name="userService" ref="userService" />
+		<property name="registerService" ref="registerService" />
+	</bean>
+	<bean id="userAction" lazy-init="true" singleton="false" class="cn.edustar.usermgr.action.UserAction">		
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="userContext" class="cn.edustar.usermgr.service.impl.UserContextImpl" 
+		singleton="true" init-method="init" destroy-method="destroy">	
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="verUser" lazy-init="true" singleton="false" class="cn.edustar.usermgr.servlet.VerUserBean">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="cacheService" class="cn.edustar.usermgr.service.impl.EHCacheServiceImpl"
+		init-method="init" destroy-method="destroy">
+	</bean>
+</beans>
